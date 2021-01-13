@@ -80,10 +80,8 @@ atex.onecms.register('ng-directive', 'pScriptList', [], function () {
                     let removeRequest = {
                         id: externalId
                     };
-                    ContentService.deleteContent(removeRequest).then(function() {
-                        console.log('removed :', externalId);
-                    }).catch(function(e) {
-                        console.log('couldn\'t remove content: ', e);
+                    ContentService.deleteContent(removeRequest).catch(function(e) {
+                        console.error('couldn\'t remove content: ', e);
                     });
 
                     scope.domainObject.setData(scope.data);
@@ -118,8 +116,6 @@ atex.onecms.register('ng-directive', 'pScriptList', [], function () {
                 };
 
                 scope.domainChangeFinalizer = scope.domainObject.on('onecms:changed', function (event, modifierId) {
-                    console.log('onecms:changed was fired', event);
-                    console.log('onecms:changed modifierId: ', modifierId);
                     if (modifierId !== scope.widgetId) {
                         scope.data = scope.domainObject.getData();
                     }
@@ -231,7 +227,6 @@ atex.onecms.register('ng-directive', 'pScriptList', [], function () {
                         data: scriptContent
                     };
 
-                    console.log('about to save script: ', scriptContent);
                     ContentService.createContent(transferInfo).then(function () {
                         scope.data.push(scriptId);
 

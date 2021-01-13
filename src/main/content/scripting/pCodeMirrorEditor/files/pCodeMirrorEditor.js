@@ -25,8 +25,7 @@ atex.onecms.register('ng-directive', 'pCodeMirrorEditor', ['codemirror', 'javasc
                 let editorConfig = scope.config.codeMirror;
                 $timeout(function() {
                     let editor = CodeMirror.fromTextArea(element.find('textarea')[0], editorConfig);
-                    editor.on('change', function(codemirrorInstance, event) {
-                        console.log('cm change: ', event);
+                    editor.on('change', function(codemirrorInstance) {
                         if (codemirrorInstance.getValue() !== scope.domainObject.getData()) {
                             scope.$apply(function() {
                                 scope.domainObject.setData(codemirrorInstance.getValue());
