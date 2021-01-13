@@ -217,7 +217,7 @@ atex.onecms.register('ng-directive', 'pScriptList', [], function () {
                     let scriptContent = {...script};
                     scriptContent.aspects.contentData.data.inputTemplate = "p.LifecycleScript";
                     scriptContent.aspects.contentData.data.objectType = "LifecycleScript";
-                    scriptContent.aspects.contentData.data._type = "com.atex.onecms.scripting.api.LifecycleScript";
+                    scriptContent.aspects.contentData.data._type = "com.atex.onecms.scripting.LifecycleScript";
                     scriptContent.aspects.contentData.data.id = formattedName;
 
                     let alias = {
@@ -244,7 +244,7 @@ atex.onecms.register('ng-directive', 'pScriptList', [], function () {
                             "scriptType": conf.scriptType,
                             "description": conf.description,
                             "script": conf.script,
-                            "_type": "com.atex.onecms.scripting.api.LifecycleScript",
+                            "_type": "com.atex.onecms.scripting.LifecycleScript",
                             "externalId": externalId
                         };
 
