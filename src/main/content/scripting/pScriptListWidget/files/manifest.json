@@ -1,0 +1,5 @@
+{
+  "name": "Script List Widget",
+  "description": "Script List Widget",
+  "scripts": ["pScriptList.js"]
+}

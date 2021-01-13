@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <name>Lifecycle Script Plugin</name>
+    <description>Add customisable scripts that run during events in a contents lifecycle.</description>
+    <groupId>com.atex.plugins</groupId>
+    <artifactId>custom-lifecycle-scripts</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <licenses>
+        <license>
+            <name>Atex Polopoly Source Code License</name>
+            <url>http://support.polopoly.com/confluence/display/GREENHOUSE/APSCL</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>products</id>
+            <name>Polopoly Products</name>
+            <email>support.polopoly@atex.com</email>
+            <organization>Atex</organization>
+            <organizationUrl>http://www.atex.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://support.atex.com/jira/browse/GONG</url>
+    </issueManagement>
+
+    <parent>
+        <groupId>com.polopoly</groupId>
+        <artifactId>public</artifactId>
+        <version>10.18.3</version>
+        <relativePath />
+    </parent>
+
+    <organization>
+        <name>Atex</name>
+        <url>http://www.atex.com</url>
+    </organization>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <polopoly.version>10.18.3-fp2</polopoly.version>
+        <desk.version>2.14.0-SNAPSHOT</desk.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.polopoly</groupId>
+            <artifactId>polopoly</artifactId>
+            <version>${polopoly.version}</version>
+            <classifier>api</classifier>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atex</groupId>
+            <artifactId>desk-content</artifactId>
+            <version>${desk.version}</version>
+            <classifier>contentdata</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atex</groupId>
+            <artifactId>module-desk</artifactId>
+            <version>${desk.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atex</groupId>
+            <artifactId>module-desk</artifactId>
+            <version>${desk.version}</version>
+            <classifier>contentdata</classifier>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atex</groupId>
+            <artifactId>module-desk-onecms</artifactId>
+            <version>${desk.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.kostaskougios</groupId>
+            <artifactId>cloning</artifactId>
+            <version>1.10.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>3.7.0</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.2.0</version>
+            <type>maven-plugin</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <artifactId>p-maven-plugin</artifactId>
+                <groupId>com.polopoly.extensions</groupId>
+                <version>${polopoly.version}</version>
+                <configuration>
+                    <generatePluginXml>true</generatePluginXml>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>pack-content</id>
+                        <goals>
+                            <goal>dot-content-to-xml</goal>
+                            <goal>pack</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <contentDataFileResources>
+                                <files>
+                                    <directory>${project.basedir}/src/main/contentfiles</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </files>
+                                <files>
+                                    <directory>${project.basedir}/src/main/content</directory>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </files>
+                            </contentDataFileResources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

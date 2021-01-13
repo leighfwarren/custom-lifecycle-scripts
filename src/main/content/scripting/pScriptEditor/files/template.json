@@ -1,0 +1,75 @@
+{
+  "id": "com.atex.onecms.scripting.ScriptEditor",
+  "type": "com.atex.onecms.scripting.LifecycleScript",
+  "label": "Script List Configuration",
+
+  "dataBindings": [
+    {
+      "label": "Script ID",
+      "widget": "pTextOutput",
+      "domainObject": "contentData/id",
+      "config": {
+        "placeholder": "Script ID"
+      }
+    },
+    {
+      "label": "Name",
+      "widget": "pTextInput",
+      "domainObject": "contentData/name",
+      "config": {
+        "placeholder": "e.g WireImage Pre-Store Script"
+      }
+    },
+    {
+      "label": "Content Type",
+      "widget": "pTextInput",
+      "domainObjects": {
+        "data": "contentData/scriptType"
+      },
+      "config": {}
+    },
+    {
+      "label": "Script Type",
+      "widget": "pSelect",
+      "domainObjects": {
+        "data": "contentData/event"
+      },
+      "config": {
+        "disableSearch": true,
+        "options" : [
+          {
+            "label" : "Pre Store",
+            "id" : "PRE_STORE"
+          },
+          {
+            "label" : "Library",
+            "id" : "LIBRARY"
+          },
+          {
+            "label" : "Callable",
+            "id" : "CALLABLE"
+          }
+        ]
+      }
+    },
+    {
+      "label": "description",
+      "widget": "pTextArea",
+      "domainObject": "contentData/description",
+      "config": {}
+    },
+    {
+      "label": "script",
+      "widget": "pCodeMirrorEditor",
+      "config": {
+        "editable": true,
+        "codeMirror": {
+          "lineNumbers": true,
+          "mode": "javascript"
+        }
+      },
+
+      "domainObject": "contentData/script"
+    }
+  ]
+}

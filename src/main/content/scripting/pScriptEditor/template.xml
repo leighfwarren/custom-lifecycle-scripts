@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content>
+        <metadata>
+            <contentid>
+                <major>AppConfig</major>
+                <externalid>atex.onecms.Template-com.atex.onecms.scripting.ScriptEditor.view</externalid>
+            </contentid>
+            <security-parent>
+                <externalid>p.onecms.DamTemplateList</externalid>
+            </security-parent>
+            <input-template>
+                <externalid>atex.onecms.Template.it</externalid>
+            </input-template>
+        </metadata>
+        <component name="name" group="polopoly.Content">Scripts List Template Viewv9</component>
+        <file name="template.json" encoding="relative">files/view-template.json</file>
+    </content>
+
+    <content>
+        <metadata>
+            <contentid>
+                <major>AppConfig</major>
+                <externalid>atex.onecms.Template-com.atex.onecms.scripting.ScriptEditor</externalid>
+            </contentid>
+            <security-parent>
+                <externalid>p.onecms.DamTemplateList</externalid>
+            </security-parent>
+            <input-template>
+                <externalid>atex.onecms.Template.it</externalid>
+            </input-template>
+        </metadata>
+        <component name="name" group="polopoly.Content">Scripts List Template Viewv7</component>
+        <file name="template.json" encoding="relative">files/template.json</file>
+    </content>
+</batch>

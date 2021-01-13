@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <!-- IMPORTANT NOTE: leave this as clear="false" to avoid override the default mapping model used also by act -->
+    <content clear="false">
+        <metadata>
+            <contentid>
+                <major>Content</major>
+                <externalid>atex.onecms.ContentManager.DefaultConfig</externalid>
+            </contentid>
+            <input-template>
+                <externalid>com.atex.onecms.content.ContentManager.config</externalid>
+            </input-template>
+        </metadata>
+        <component group="inputTemplateMapping" name="com.atex.onecms.scripting.LifecycleScript">p.LifecycleScript</component>
+        <component group="inputTemplateMapping" name="com.atex.onecms.scripting.ScriptList">p.ScriptList</component>
+    </content>
+</batch>

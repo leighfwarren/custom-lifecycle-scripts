@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content>
+        <metadata>
+            <contentid>
+                <major>AppConfig</major>
+                <externalid>atex.onecms.Widget-pCodeMirrorEditor</externalid>
+            </contentid>
+            <security-parent>
+                <externalid>atex.onecms.OneCMSSettings</externalid>
+            </security-parent>
+            <input-template>
+                <externalid>atex.onecms.Widget.it</externalid>
+            </input-template>
+        </metadata>
+
+        <component group="polopoly.Content" name="name">OneCMS Widget - pCodeMirrorEditor</component>
+
+        <file name="pCodeMirrorEditor.js" encoding="relative">files/pCodeMirrorEditor.js</file>
+        <file name="manifest.json" encoding="relative">files/manifest.json</file>
+        <file name="template.html" encoding="relative">files/template.html</file>
+        <file name="layout.css" encoding="relative">files/layout.css</file>
+
+
+        <file name="codemirror/lib/codemirror.js" encoding="relative">files/codemirror/lib/codemirror.js</file>
+        <file name="codemirror/mode/javascript/javascript.js" encoding="relative">files/codemirror/mode/javascript.js</file>
+        <file name="codemirror/lib/codemirror.css" encoding="relative">files/codemirror/lib/codemirror.css</file>
+    </content>
+</batch>

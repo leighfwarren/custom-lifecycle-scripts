@@ -1,0 +1,20 @@
+{
+  "id": "com.atex.onecms.scripting.ScriptList.view",
+  "type": "com.atex.onecms.scripting.ScriptList",
+  "label": "Script List Configuration",
+
+  "dataBindings": [
+    {
+      "label": "Scripts List",
+      "widget": "pScriptList",
+
+      "config": {
+        "editable":false
+      },
+
+      "domainObjects": {
+        "data": "contentData/scripts"
+      }
+    }
+  ]
+}

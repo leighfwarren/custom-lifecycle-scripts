@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+    <input-template name="p.ScriptList" label="Script List">
+        <policy>com.atex.onecms.scripting.ScriptListPolicy</policy>
+
+        <viewer>com.atex.plugins.orchid.onecms.OOneCMSTemplateTopPolicyWidget</viewer>
+        <editor>com.atex.plugins.orchid.onecms.OOneCMSTemplateTopPolicyWidget</editor>
+        <type>AppConfig</type>
+
+        <param name="defaultContentDataType">com.atex.onecms.scripting.ScriptList</param>
+        <param name="oneCMSViewTemplateId">com.atex.onecms.scripting.ScriptList.view</param>
+        <param name="oneCMSEditTemplateId">com.atex.onecms.scripting.ScriptList</param>
+    </input-template>
+</template-definition>

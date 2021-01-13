@@ -1,0 +1,20 @@
+{
+  "id": "com.atex.onecms.scripting.ScriptEditor.view",
+  "type": "com.atex.onecms.scripting.LifecycleScript",
+  "label": "Script List Configuration",
+
+  "dataBindings": [
+    {
+      "label": "Script Editor",
+      "widget": "pScriptEditor",
+
+      "config": {
+        "editable":false
+      },
+
+      "domainObjects": {
+        "data": "contentData"
+      }
+    }
+  ]
+}

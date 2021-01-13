@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content clear="false">
+        <metadata>
+            <contentid>
+                <major>AppConfig</major>
+                <externalid>com.atex.plugins.scripting.configuration</externalid>
+            </contentid>
+            <input-template>
+                <major>InputTemplate</major>
+                <externalid>p.ScriptList</externalid>
+            </input-template>
+            <security-parent>
+                <externalid>p.siteengine.Configuration.d</externalid>
+            </security-parent>
+        </metadata>
+        <component group="contentData" name="contentData">{
+            "scripts": [],
+            "_type": "com.atex.onecms.scripting.ScriptList",
+            "objectType": "ScriptList",
+            "inputTemplate": "p.ScriptList",
+            "contentType": "parentDocument",
+            "name": "Script Configuration"
+        }
+        </component>
+    </content>
+    <content>
+        <metadata>
+            <contentid>
+                <externalid>p.siteengine.Configuration.d</externalid>
+            </contentid>
+        </metadata>
+        <contentlist>
+            <entry mode="modify" withMetadata="false">
+                <metadata>
+                    <referredContent>
+                        <contentid>
+                            <externalid>com.atex.plugins.scripting.configuration</externalid>
+                        </contentid>
+                    </referredContent>
+                </metadata>
+            </entry>
+        </contentlist>
+    </content>
+</batch>

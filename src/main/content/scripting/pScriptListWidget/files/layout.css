@@ -1,0 +1,36 @@
+.template-label {
+  margin-left:5px !important;
+}
+
+.duplicate-label {
+  margin-right:10px !important;
+}
+
+.link-icon {
+  cursor:pointer !important;
+}
+
+.label-running-edit {
+  margin-top: 0.3%;
+  margin-right:5%;
+}
+
+.label-running-view {
+  margin-top: 0.3%;
+}
+
+.label-unsave {
+  margin-top: 0.3%;
+  margin-right:10%;
+}
+
+.action-button {
+  margin-right:5%;	
+}
+
+
+/** Check CSS above this line is needed **/
+
+.m-10 {
+  margin: 10px;
+}

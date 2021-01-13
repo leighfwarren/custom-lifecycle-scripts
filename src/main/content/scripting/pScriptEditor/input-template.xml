@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+  <input-template name="p.LifecycleScript" label="Script Configuration">
+    <policy>com.atex.onecms.scripting.LifecycleScriptPolicy</policy>
+    <param name="defaultContentDataType">com.atex.onecms.scripting.LifecycleScript</param>
+    
+    <viewer>com.atex.plugins.orchid.onecms.OOneCMSTemplateTopPolicyWidget</viewer>
+	<editor>com.atex.plugins.orchid.onecms.OOneCMSTemplateTopPolicyWidget</editor>
+    
+    <param name="oneCMSViewTemplateId">com.atex.onecms.scripting.ScriptEditor.view</param>
+    <param name="oneCMSEditTemplateId">com.atex.onecms.scripting.ScriptEditor</param>
+    
+    <type>AppConfig</type>
+  </input-template>
+</template-definition>

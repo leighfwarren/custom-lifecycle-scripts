@@ -1,0 +1,39 @@
+<link rel="stylesheet" type="text/css" x-ng-href="{{baseUrl}}/layout.css">
+<div>
+    <div ng-if="!editingScript">
+        <div ng-repeat="script in scripts" x-ng-model="scripts">
+            <div class="checkbox form-control">
+                <span class="fa fa-file-code-o"></span> <span ng-if="!editable">{{ script.name || '&nbsp;' }}</span> <a
+                    ng-if="editable" class="link-icon" ng-click="edit(script.externalId)">{{ script.name || '&nbsp;' }}</a>
+
+                <a href='#' class="pull-right" ng-show="editable" ng-click="remove(script.externalId)">
+                    <span class="fa fa-trash" title="Remove Script"></span>
+                </a>
+            </div>
+        </div>
+
+        <a href="#" ng-click="newScript();" class="btn btn-primary btn-circle" ng-if="editable && !editingScript"><i class="fa fa-plus"></i></a>
+    </div>
+    <div ng-if="editingScript">
+        <onecms-content-editor
+                class="content-editor"
+                ng-if="editingScript"
+                data-article="article"
+                data-template="template"
+                data-init-callback="initCallback"
+                data-edit-callback="editCallback"
+                data-load-callback="hideSpinner"
+                data-change-start-callback="changeStartCallback"
+                data-change-end-callback="changeEndCallback"
+                data-error-callback="hideSpinner">
+
+            <div x-ng-if="layout.views" x-ng-include="'layoutTemplate'" class="template-layout"></div>
+            <div x-ng-if="!layout.views" class="template-layout default-layout">
+                <template-field x-ng-if="!layout.views" x-ng-repeat="field in fields" data-field="field"></template-field>
+            </div>
+        </onecms-content-editor>
+        <button class="btn btn-primary m-10" ng-click="persistScript(openScript);">Save&nbsp;<i class="fa fa-save"></i></button>
+        <button class="btn btn-default m-10" ng-click="closeScript();">Close&nbsp;<i class="fa fa-close"></i></button>
+        <button class="btn btn-danger m-10" ng-click="removeOpenScript();">Delete&nbsp;<i class="fa fa-trash"></i></button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+{
+  "name": "Script Editor Widget",
+  "description": "Script Editor Widget",
+  "scripts": ["pCodeMirrorEditor.js"],
+  "requires": [
+    {
+      "name": "codemirror",
+      "path": "codemirror/lib/codemirror.js"
+    },
+    {
+      "name": "javascript",
+      "path": "codemirror/mode/javascript/javascript.js"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content>
+        <metadata>
+            <contentid>
+                <major>AppConfig</major>
+                <externalid>atex.onecms.Widget-pScriptList</externalid>
+            </contentid>
+            <security-parent>
+                <externalid>atex.onecms.OneCMSSettings</externalid>
+            </security-parent>
+            <input-template>
+                <externalid>atex.onecms.Widget.it</externalid>
+            </input-template>
+        </metadata>
+
+        <component group="polopoly.Content" name="name">OneCMS Widget - pScriptList</component>
+
+        <file name="pScriptList.js" encoding="relative">files/pScriptList.js</file>
+        <file name="manifest.json" encoding="relative">files/manifest.json</file>
+        <file name="template.html" encoding="relative">files/template.html</file>
+        <file name="layout.css" encoding="relative">files/layout.css</file>
+    </content>
+</batch>
