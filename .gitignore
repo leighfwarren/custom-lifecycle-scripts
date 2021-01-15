@@ -4,3 +4,4 @@ target
 custom-lifecycle-scripts.iml
 .classpath
 .project
+.DS_Store

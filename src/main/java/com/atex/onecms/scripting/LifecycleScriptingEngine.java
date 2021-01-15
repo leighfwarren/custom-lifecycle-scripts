@@ -153,13 +153,15 @@ public final class LifecycleScriptingEngine {
 
     /**
      * Run all scripts in the engine registered to a given event and content type.
-     * @param eventType The event type to execute scripts for.
-     * @param type The content type to execute scripts for.
+     * @param scriptType The event type to execute scripts for.
+     * @param contentType The content type to execute scripts for. e.g atex.onecms.article
      * @param contextData The context to run this script in.
      * @return A new ScriptEngineContext containing the changes made to the original by scripts.
      * @throws ScriptEngineException If there is an error running any scripts that are triggered.
      */
-    public ContextMap trigger(final ScriptType eventType, final String type, final ContextMap contextData) throws ScriptEngineException {
+    public ContextMap trigger(final ScriptType scriptType,
+                              final String contentType,
+                              final ContextMap contextData) throws ScriptEngineException {
         ContextMap newContext = contextData;
         ScriptList scriptList = null;
         try {
@@ -173,7 +175,8 @@ public final class LifecycleScriptingEngine {
                 try {
                     compilableScript = scriptCache.get(id.getExternalId());
 
-                    if (ScriptType.valueOf(compilableScript.getEvent()) == eventType && compilableScript.getContentType().matches(type)) {
+                    if (ScriptType.valueOf(compilableScript.getEvent()) == scriptType
+                            && compilableScript.getContentType().matches(contentType)) {
                         newContext = executeScript(compilableScript, newContext);
                     }
                 } catch (ExecutionException e) {

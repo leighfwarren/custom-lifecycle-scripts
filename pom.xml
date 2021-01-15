@@ -160,4 +160,24 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>deploy</id>
+
+            <distributionManagement>
+                <repository>
+                    <name>Polopoly PD Plugins</name>
+                    <id>polopoly-pd-plugins</id>
+                    <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins</url>
+                </repository>
+
+                <snapshotRepository>
+                    <name>Polopoly PD Plugins Snapshots</name>
+                    <id>polopoly-pd-plugins-snapshots</id>
+                    <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins-snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 </project>

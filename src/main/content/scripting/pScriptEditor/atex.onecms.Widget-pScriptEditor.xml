@@ -14,6 +14,6 @@
             </input-template>
         </metadata>
 
-        <component group="polopoly.Content" name="name">OneCMS Widget - pScriptEditorv3</component>
+        <component group="polopoly.Content" name="name">OneCMS Widget - pScriptEditor</component>
     </content>
 </batch>
