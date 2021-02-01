@@ -18,6 +18,24 @@
         </license>
     </licenses>
 
+    <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>polopoly-pd-plugins</id>
+            <name>Polopoly Product Plugins</name>
+            <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>polopoly-pd-plugins-snapshots</id>
+            <name>Polopoly Product Plugins Snapshots</name>
+            <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins-snapshots</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
+
     <developers>
         <developer>
             <id>products</id>
@@ -161,23 +179,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>deploy</id>
-
-            <distributionManagement>
-                <repository>
-                    <name>Polopoly PD Plugins</name>
-                    <id>polopoly-pd-plugins</id>
-                    <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins</url>
-                </repository>
-
-                <snapshotRepository>
-                    <name>Polopoly PD Plugins Snapshots</name>
-                    <id>polopoly-pd-plugins-snapshots</id>
-                    <url>http://maven.polopoly.com/nexus/content/repositories/polopoly-pd-plugins-snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-        </profile>
-    </profiles>
 </project>
