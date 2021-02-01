@@ -24,8 +24,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * This test class mocks the ContentManager using mockito. Because the LifecycleScriptingEngine is used for all tests is a static instance,
@@ -80,7 +79,7 @@ public class LifecycleScriptTest {
     }
 
     private static ContentVersionId setupResolve(final ContentVersionId id, final String externalId) {
-        when(cm.resolve(externalId, Subject.NOBODY_CALLER)).thenReturn(id);
+        doReturn(id).when(cm).resolve(externalId, Subject.NOBODY_CALLER);
         return id;
     }
 
