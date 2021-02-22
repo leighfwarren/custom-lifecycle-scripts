@@ -5,7 +5,7 @@
     <description>Add customisable scripts that run during events in a contents lifecycle.</description>
     <groupId>com.atex.plugins</groupId>
     <artifactId>custom-lifecycle-scripts</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <licenses>
@@ -72,7 +72,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <polopoly.version>10.20.0</polopoly.version>
-        <desk.version>2.14.0-SNAPSHOT</desk.version>
+        <desk.version>2.15.0-SNAPSHOT</desk.version>
     </properties>
 
     <dependencies>
@@ -102,6 +102,7 @@
             <artifactId>module-desk</artifactId>
             <version>${desk.version}</version>
             <classifier>contentdata</classifier>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -182,6 +183,15 @@
                 <version>3.2.0</version>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
 </project>
