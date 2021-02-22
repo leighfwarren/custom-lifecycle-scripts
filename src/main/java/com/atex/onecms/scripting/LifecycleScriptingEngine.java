@@ -66,7 +66,7 @@ public final class LifecycleScriptingEngine {
         contentManager = cm;
         scriptCache = CacheBuilder.newBuilder()
                                 .maximumSize(1000)
-                                .expireAfterAccess(5, TimeUnit.SECONDS)
+                                .expireAfterWrite(20, TimeUnit.SECONDS)
                                 .build(new CacheLoader<String, CompilableScript>() {
                                     @Override
                                     @ParametersAreNonnullByDefault
@@ -76,7 +76,7 @@ public final class LifecycleScriptingEngine {
                                             ContentResult<LifecycleScript> result = cm.get(versionId,
                                                     LifecycleScript.class,
                                                     Subject.NOBODY_CALLER);
-                                            if (result.getStatus().equals(Status.OK)) {
+                                            if (result != null && Status.OK.equals(result.getStatus())) {
                                                 return new CompilableScript(result.getContent().getContentData());
                                             }
                                         }
