@@ -3,15 +3,22 @@ package com.atex.onecms.scripting;
 import com.atex.onecms.app.dam.standard.aspects.OneArticleBean;
 import com.atex.onecms.app.dam.workflow.WFContentStatusAspectBean;
 import com.atex.onecms.app.dam.workflow.WFStatusBean;
+import com.atex.onecms.app.dam.workflow.WFStatusListBean;
 import com.atex.onecms.content.*;
 import com.atex.onecms.content.aspects.Aspect;
+import com.atex.onecms.content.metadata.MetadataInfo;
 import com.atex.onecms.scripting.api.ContentWriteFacade;
 import com.atex.plugins.structured.text.StructuredText;
 import com.polopoly.cm.ExternalContentId;
+import com.polopoly.metadata.Dimension;
+import com.polopoly.metadata.Entity;
+import com.polopoly.metadata.Metadata;
 import com.polopoly.util.StringUtil;
 import org.apache.commons.io.IOUtils;
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -31,6 +38,7 @@ import static org.mockito.Mockito.*;
  * and so ContentManager to be injected is also a static instance, the @Mock or @RunWith(MockitoJUnitRunner.class) annotations
  * cannot be used as they will mock a new instance of the ContentManger for each test method that runs.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LifecycleScriptTest {
 
     private static ContentManager cm;
@@ -683,6 +691,146 @@ public class LifecycleScriptTest {
         try {
             engine.run(script.getId(), new ContextMap());
         } catch (ScriptEngineException | ExecutionException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    /**
+     * Get a default ContentWriteBuilder.
+     * @return A new ContentWriteBuilder that can be further modified.
+     */
+    private ContentWriteBuilder<OneArticleBean> getContentWriteBuilder() {
+        ContentWriteBuilder<OneArticleBean> builder = new ContentWriteBuilder<>();
+        OneArticleBean article = new OneArticleBean();
+        final String articleHeadline = "New Article";
+        article.setHeadline(new StructuredText(articleHeadline));
+        builder.mainAspectData(article).aspect(new Aspect<>(InsertionInfoAspectBean.ASPECT_NAME, new InsertionInfoAspectBean()));
+        return builder;
+    }
+
+    private boolean dimensionContainsEntity(Dimension dimension, String entityId) {
+        return dimension.getEntities().stream().anyMatch(entity -> entityId.equals(entity.getId()));
+    }
+
+    @Test
+    public void testSetPartition() {
+        final String scriptType = "setPartitionTest";
+        LifecycleScript script = new LifecycleScript();
+        script.setEvent(ScriptType.PRE_STORE.toString());
+        script.setScriptType(scriptType);
+        final String scriptId = "set-partition-test";
+        script.setId(scriptId);
+        script.setScript("setPartition(content, 'production')");
+
+        setupScriptContentResolve(script);
+
+        LifecycleScriptingEngine engine = LifecycleScriptingEngine.getInstance(cm);
+        ContentWriteBuilder<OneArticleBean> contentBuilder = getContentWriteBuilder();
+
+        Dimension dim = new Dimension("dimension.partition",
+                "dimension.partition",
+                false,
+                new Entity("incoming", "incoming"));
+        Metadata metadata = new Metadata(dim);
+        contentBuilder.aspect(new Aspect<>(MetadataInfo.ASPECT_NAME, new MetadataInfo(metadata)));
+        ContentWrite<OneArticleBean> content = contentBuilder.build();
+
+        try {
+            ContextMap resultMap = engine.trigger(ScriptType.PRE_STORE, scriptType, new ContextMap("content", new ContentWriteFacade(content)));
+            ContentWrite<OneArticleBean> resultContent = (ContentWrite<OneArticleBean>) resultMap.get("content");
+            Metadata newMetaData = resultContent.getAspect(MetadataInfo.ASPECT_NAME, MetadataInfo.class).getMetadata();
+
+            Dimension partitionDimension = newMetaData.getDimensionById("dimension.partition");
+            boolean incomingPartition = dimensionContainsEntity(partitionDimension, "incoming");
+            boolean productionPartition = dimensionContainsEntity(partitionDimension, "production");
+            assert(!incomingPartition && productionPartition);
+        } catch (ScriptEngineException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void testSetWFStatus() {
+        final String scriptType = "setWFStatusTest";
+        LifecycleScript script = new LifecycleScript();
+        script.setEvent(ScriptType.PRE_STORE.toString());
+        script.setScriptType(scriptType);
+        final String scriptId = "set-wf-status-test";
+        script.setId(scriptId);
+        script.setScript("setWFStatus(content, 'finished')");
+
+        setupScriptContentResolve(script);
+
+        LifecycleScriptingEngine engine = LifecycleScriptingEngine.getInstance(cm);
+        ContentWriteBuilder<OneArticleBean> contentBuilder = getContentWriteBuilder();
+
+        // Set up mocking for WF status list.
+//        ContentVersionId wfStatusListId = setupResolve(createPolicyContentVersionId(2), "atex.WFStatusList");
+        ContentVersionId id = createPolicyContentVersionId(2);
+        doReturn(id).when(cm).resolve(eq("atex.WFStatusList"), any());
+        ContentResultBuilder<WFStatusListBean> statusListBeanBuilder = new ContentResultBuilder<>();
+        WFStatusListBean statusListBean = new WFStatusListBean();
+        List<WFStatusBean> statusList = new ArrayList<>();
+        WFStatusBean finishedStatusBean = new WFStatusBean();
+        finishedStatusBean.setStatusID("finished");
+        statusList.add(finishedStatusBean);
+        statusListBean.setStatus(statusList);
+        statusListBeanBuilder.mainAspect(new Aspect<>(WFStatusListBean.ASPECT_NAME, statusListBean));
+        ContentResult<WFStatusListBean> result = statusListBeanBuilder.build();
+        when(cm.get(eq(id), eq(WFStatusListBean.class), any())).thenReturn(result);
+
+
+        WFContentStatusAspectBean wfStatusAspect = new WFContentStatusAspectBean();
+        WFStatusBean wfStatusBean = new WFStatusBean();
+        wfStatusBean.setStatusID("review");
+        wfStatusAspect.setStatus(wfStatusBean);
+        contentBuilder.aspect(new Aspect<>(WFContentStatusAspectBean.ASPECT_NAME, wfStatusAspect));
+        ContentWrite<OneArticleBean> content = contentBuilder.build();
+        try {
+            ContextMap context = new ContextMap("content", new ContentWriteFacade(content));
+            ContextMap resultMap = engine.trigger(ScriptType.PRE_STORE, scriptType, context);
+            ContentWrite<OneArticleBean> resultContent = (ContentWrite<OneArticleBean>) resultMap.get("content");
+            WFContentStatusAspectBean newStatusAspect = resultContent.getAspect(WFContentStatusAspectBean.ASPECT_NAME, WFContentStatusAspectBean.class);
+            assertEquals("finished", newStatusAspect.getStatus().getStatusID());
+        } catch (ScriptEngineException e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void testScriptUpdate() throws InterruptedException {
+        final String scriptType = "testScriptUpdate";
+        LifecycleScript script = new LifecycleScript();
+        script.setEvent(ScriptType.PRE_STORE.toString());
+        script.setScriptType(scriptType);
+        final String scriptId = "test-script-update";
+        script.setId(scriptId);
+        script.setScript("x = 1");
+
+        setupScriptContentResolve(script);
+
+        LifecycleScriptingEngine engine = LifecycleScriptingEngine.getInstance(cm);
+        try {
+            ContextMap context = new ContextMap("x", 0);
+            ContextMap resultMap = engine.trigger(ScriptType.PRE_STORE, scriptType, context);
+            assertEquals(1, resultMap.get("x"));
+        } catch (ScriptEngineException e) {
+            e.printStackTrace();
+            fail();
+        }
+
+        Thread.sleep(20000);
+
+        script.setScript("x = 2");
+        setupScriptContentResolve(script);
+        try {
+            ContextMap context = new ContextMap("x", 0);
+            ContextMap resultMap = engine.trigger(ScriptType.PRE_STORE, scriptType, context);
+            assertEquals(2, resultMap.get("x"));
+        } catch (ScriptEngineException e) {
             e.printStackTrace();
             fail();
         }

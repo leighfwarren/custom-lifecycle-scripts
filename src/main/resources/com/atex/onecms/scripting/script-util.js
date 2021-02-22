@@ -20,7 +20,11 @@ function resolve(externalId) {
  * @param {String} partitionName The name of the partition to set.
  */
 function setPartition(content, partitionName) {
-    var PartitionUtils = Java.type('com.atex.workflow.PartitionUtils');
+    var PartitionUtils = Java.type('com.atex.onecms.scripting.workflow.PartitionUtils');
+
+    if (content instanceof Java.type('com.atex.onecms.scripting.api.BaseJSObject')) {
+        content = content.getContentWrite();
+    }
     PartitionUtils.changePartition(content, partitionName);
 }
 
@@ -36,6 +40,9 @@ function setWFStatus(content, statusId) {
     if (statusBean === null) {
         throw new Error('No status with the ID "' + statusId + '"');
     }
+    if (content instanceof Java.type('com.atex.onecms.scripting.api.BaseJSObject')) {
+        content = content.getContentWrite();
+    }
     var contentStatusBean = content.getAspect(Java.type('com.atex.onecms.app.dam.workflow.WFContentStatusAspectBean').ASPECT_NAME);
     contentStatusBean.setStatus(statusBean);
 }
@@ -48,6 +55,9 @@ function setWFStatus(content, statusId) {
 function setWebStatus(content, statusId) {
     var WebStatusUtils = Java.type('com.atex.workflow.WebStatusUtils');
     var wsUtils = new WebStatusUtils(contentManager);
+    if (content instanceof Java.type('com.atex.onecms.scripting.api.BaseJSObject')) {
+        content = content.getContentWrite();
+    }
     wsUtils.setWebStatus(content, statusId);
 }
 /**
