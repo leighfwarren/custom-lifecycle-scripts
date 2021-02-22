@@ -1,18 +1,18 @@
 package com.atex.onecms.scripting.api;
 
-import com.atex.onecms.scripting.ImmutableException;
-import jdk.nashorn.api.scripting.AbstractJSObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import com.atex.onecms.scripting.ImmutableException;
+import jdk.nashorn.api.scripting.AbstractJSObject;
+
 /**
  * BaseJSObject is a wrapper class that can be used to make Nashorn treat any wrapped class as a script object. This class subclasses
  * {@link jdk.nashorn.api.scripting.AbstractJSObject} and provides some sensible defaults for objects such as a valueOf function, and
- * toString function.<br/>
+ * toString function.
  * Values in the properties map can be accessed in scripts using standard JavaScript syntax such as: <code>obj['property']</code> or
- * <code>obj.property</code>.<br/>
+ * <code>obj.property</code>.
  * Subclasses of this class can be made immutable, ie assignment of properties or calls to <code>delete obj.property</code> will throw
  * an {@link com.atex.onecms.scripting.ImmutableException}
  * @param <T> The Type to be wrapped.
@@ -36,6 +36,7 @@ public abstract class BaseJSObject<T> extends AbstractJSObject {
 
     /**
      * Create a new BaseJSObject.
+     * @param baseObject Object to use
      * @param immutable true if the object should be immutable in script code, otherwise false.
      */
     public BaseJSObject(final T baseObject, final boolean immutable) {

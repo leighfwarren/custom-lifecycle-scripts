@@ -18,6 +18,13 @@
         </license>
     </licenses>
 
+    <scm>
+        <developerConnection>scm:git:git@github.com:atex-community-plugins/custom-lifecycle-scripts.git</developerConnection>
+        <connection>scm:git:git@github.com:atex-community-plugins/custom-lifecycle-scripts.git</connection>
+        <url>https://github.com/atex-community-plugins/custom-lifecycle-scripts.git</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <distributionManagement>
         <repository>
             <uniqueVersion>false</uniqueVersion>

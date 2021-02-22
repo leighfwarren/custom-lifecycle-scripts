@@ -1,11 +1,11 @@
 package com.atex.onecms.scripting.api;
 
-import com.atex.onecms.scripting.ContextMap;
-import com.atex.onecms.scripting.ImmutableException;
-
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import com.atex.onecms.scripting.ContextMap;
+import com.atex.onecms.scripting.ImmutableException;
 
 /**
  * ScriptEngineContext wraps a ContextMap and makes it more usable in the JS environment.
@@ -38,6 +38,11 @@ public class ScriptEngineContext extends BaseJSObject<ContextMap> {
     }
 
     @Override
+    /**
+     * @param args An argument list of objects to pass into the context
+     * @see ContextMap (args)
+     *
+     */
     public Object newObject(final Object... args) {
         ContextMap baseContext = new ContextMap(args);
         return new ScriptEngineContext(baseContext);
