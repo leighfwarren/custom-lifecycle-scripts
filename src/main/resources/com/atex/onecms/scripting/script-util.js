@@ -153,7 +153,7 @@ function emailHostSMTP(host, auth) {
             getPasswordAuthentication: function() {
                 return new PasswordAuthentication(auth.user, auth.password);
             }
-        };
+        }
         session = Session.getDefaultInstance(properties, authenticator);
     } else {
         session = Session.getDefaultInstance(properties);
@@ -241,4 +241,30 @@ function getByPath(object, path) {
     }
 
     return valueObject[pathSegments.pop()];
+}
+
+/** Add an aspect to content
+ *
+ * @param content
+ * @param aspect an Aspect
+ * @returns contentWrite
+ */
+
+function addAspect(content, aspect) {
+    if (content instanceof Java.type('com.atex.onecms.scripting.api.BaseJSObject')) {
+        content = content.getContentWrite();
+    }
+
+    var ContentWriteBuilder = Java.type('com.atex.onecms.content.ContentWriteBuilder');
+    var contentWriteBuilder = ContentWriteBuilder.from(content)
+        .mainAspectData(content.getContentData())
+        .aspect(aspect);
+
+    var ContentWriteFacade = Java.type('com.atex.onecms.scripting.api.ContentWriteFacade');
+
+    if (content.getOrigin()) {
+        return new ContentWriteFacade(contentWriteBuilder.buildUpdate());
+    } else {
+        return new ContentWriteFacade(contentWriteBuilder.buildCreate());
+    }
 }
